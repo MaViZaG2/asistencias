@@ -10,7 +10,7 @@ import json
 # CONFIGURACIÓN DE PÁGINA
 # ─────────────────────────────────────────────
 st.set_page_config(
-    page_title="Sistema de Asistencias - UGEL 07",
+    page_title="Sistema de Asistencias - UGEL 06",
     page_icon=None,
     layout="wide",
     initial_sidebar_state="expanded",
@@ -293,7 +293,7 @@ def pantalla_login():
 def render_sidebar():
     with st.sidebar:
         st.markdown(
-            "<h2 style='color:white;'>UGEL 07</h2>",
+            "<h2 style='color:white;'>UGEL 06</h2>",
             unsafe_allow_html=True,
         )
         st.markdown(
