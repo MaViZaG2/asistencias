@@ -225,8 +225,7 @@ def pantalla_login():
             "<p style='text-align:center; color:#9CA3AF; font-size:0.8rem;'>"
             "Made by Matías Zamudio</p>",
             unsafe_allow_html=True,
-
-
+        )
 # ─────────────────────────────────────────────
 # SIDEBAR
 # ─────────────────────────────────────────────
