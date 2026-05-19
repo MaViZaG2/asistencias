@@ -21,72 +21,125 @@ st.set_page_config(
 # ─────────────────────────────────────────────
 st.markdown("""
 <style>
-    /* Fondo y tipografía general */
-    .main { background-color: #FFFFFF; }
-    body { color: #111111; font-family: 'Segoe UI', Arial, sans-serif; }
+    /* ===== Fondo general ===== */
+    .main {
+        background-color: #FFFFFF;
+    }
 
-    /* Títulos */
-    h1, h2, h3 { color: #1E3A8A; }
+    body {
+        color: #111827;
+        font-family: 'Segoe UI', Arial, sans-serif;
+    }
 
-    /* Botones primarios */
+    /* ===== Títulos ===== */
+    h1, h2, h3 {
+        color: #1D4ED8;
+        font-weight: 700;
+    }
+
+    /* ===== Texto normal ===== */
+    p, span, label, div {
+        color: #111827;
+    }
+
+    /* ===== Botones ===== */
     .stButton > button {
-        background-color: #DC2626;
-        color: white;
+        background-color: #FCA5A5;
+        color: #7F1D1D;
         border: none;
-        border-radius: 4px;
-        padding: 0.5rem 1.2rem;
+        border-radius: 8px;
+        padding: 0.55rem 1.2rem;
         font-weight: 600;
-        font-size: 0.9rem;
-        transition: background-color 0.2s;
+        font-size: 0.92rem;
+        transition: all 0.2s ease;
     }
+
     .stButton > button:hover {
-        background-color: #B91C1C;
+        background-color: #F87171;
         color: white;
     }
 
-    /* Sidebar */
+    /* ===== Sidebar ===== */
     section[data-testid="stSidebar"] {
-        background-color: #1E3A8A;
+        background-color: #DBEAFE;
     }
+
     section[data-testid="stSidebar"] * {
-        color: #FFFFFF !important;
+        color: #1E3A8A !important;
     }
 
-    /* Cards / contenedores */
+    /* ===== Cards / contenedores ===== */
     .info-card {
-        background-color: #F0F4FF;
-        border-left: 4px solid #1E3A8A;
+        background-color: #EFF6FF;
+        border-left: 5px solid #60A5FA;
         padding: 1rem 1.2rem;
-        border-radius: 4px;
+        border-radius: 10px;
         margin-bottom: 1rem;
+        color: #111827;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.05);
     }
 
-    /* Tabla de profesores */
+    /* ===== Filas / profesores ===== */
     .profesor-row {
-        background-color: #F9FAFB;
-        border: 1px solid #E5E7EB;
-        border-radius: 6px;
+        background-color: #FEFCE8;
+        border: 1px solid #FDE68A;
+        border-radius: 10px;
         padding: 0.8rem 1rem;
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.6rem;
+        color: #111827;
     }
 
-    /* Encabezado de sección */
+    /* ===== Encabezados de sección ===== */
     .section-header {
-        color: #1E3A8A;
+        color: #1D4ED8;
         font-size: 1.1rem;
         font-weight: 700;
-        border-bottom: 2px solid #DC2626;
-        padding-bottom: 0.3rem;
+        border-bottom: 3px solid #FCA5A5;
+        padding-bottom: 0.35rem;
         margin-bottom: 1rem;
     }
 
-    /* Mensajes de estado */
-    .status-presente { color: #15803D; font-weight: 600; }
-    .status-ausente  { color: #DC2626; font-weight: 600; }
-    .status-retardo  { color: #D97706; font-weight: 600; }
+    /* ===== Estados ===== */
+    .status-presente {
+        color: #15803D;
+        font-weight: 600;
+    }
 
-    /* Ocultar footer de Streamlit */
-    footer { visibility: hidden; }
+    .status-ausente {
+        color: #DC2626;
+        font-weight: 600;
+    }
+
+    .status-retardo {
+        color: #D97706;
+        font-weight: 600;
+    }
+
+    /* ===== Inputs ===== */
+    .stTextInput input,
+    .stTextArea textarea,
+    .stSelectbox div[data-baseweb="select"] {
+        background-color: #FFFFFF;
+        color: #111827;
+        border: 1px solid #CBD5E1;
+        border-radius: 8px;
+    }
+
+    /* ===== Dataframes ===== */
+    .stDataFrame {
+        background-color: #FFFFFF;
+        border-radius: 10px;
+    }
+
+    /* ===== Alertas ===== */
+    .stAlert {
+        border-radius: 10px;
+    }
+
+    /* ===== Footer ===== */
+    footer {
+        visibility: hidden;
+    }
 </style>
 """, unsafe_allow_html=True)
 
