@@ -21,25 +21,36 @@ st.set_page_config(
 # ─────────────────────────────────────────────
 st.markdown("""
 <style>
+
     /* ===== Fondo general ===== */
-    .main {
-        background-color: #FFFFFF;
+    .stApp {
+        background-color: #F3F4F6;
     }
 
-    body {
+    html, body, [class*="css"] {
         color: #111827;
         font-family: 'Segoe UI', Arial, sans-serif;
     }
 
     /* ===== Títulos ===== */
     h1, h2, h3 {
-        color: #1D4ED8;
+        color: #1D4ED8 !important;
         font-weight: 700;
     }
 
-    /* ===== Texto normal ===== */
+    /* ===== Texto ===== */
     p, span, label, div {
         color: #111827;
+    }
+
+    /* ===== Sidebar ===== */
+    section[data-testid="stSidebar"] {
+        background-color: #DBEAFE !important;
+        border-right: 1px solid #BFDBFE;
+    }
+
+    section[data-testid="stSidebar"] * {
+        color: #1E3A8A !important;
     }
 
     /* ===== Botones ===== */
@@ -47,49 +58,40 @@ st.markdown("""
         background-color: #FCA5A5;
         color: #7F1D1D;
         border: none;
-        border-radius: 8px;
+        border-radius: 10px;
         padding: 0.55rem 1.2rem;
         font-weight: 600;
-        font-size: 0.92rem;
         transition: all 0.2s ease;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.08);
     }
 
     .stButton > button:hover {
         background-color: #F87171;
         color: white;
+        transform: translateY(-1px);
     }
 
-    /* ===== Sidebar ===== */
-    section[data-testid="stSidebar"] {
-        background-color: #DBEAFE;
-    }
-
-    section[data-testid="stSidebar"] * {
-        color: #1E3A8A !important;
-    }
-
-    /* ===== Cards / contenedores ===== */
+    /* ===== Cards ===== */
     .info-card {
-        background-color: #EFF6FF;
+        background-color: #FFFFFF;
         border-left: 5px solid #60A5FA;
         padding: 1rem 1.2rem;
-        border-radius: 10px;
+        border-radius: 12px;
         margin-bottom: 1rem;
         color: #111827;
-        box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+        box-shadow: 0 2px 6px rgba(0,0,0,0.06);
     }
 
-    /* ===== Filas / profesores ===== */
+    /* ===== Filas / tablas ===== */
     .profesor-row {
         background-color: #FEFCE8;
         border: 1px solid #FDE68A;
         border-radius: 10px;
         padding: 0.8rem 1rem;
         margin-bottom: 0.6rem;
-        color: #111827;
     }
 
-    /* ===== Encabezados de sección ===== */
+    /* ===== Headers de sección ===== */
     .section-header {
         color: #1D4ED8;
         font-size: 1.1rem;
@@ -119,27 +121,33 @@ st.markdown("""
     .stTextInput input,
     .stTextArea textarea,
     .stSelectbox div[data-baseweb="select"] {
-        background-color: #FFFFFF;
-        color: #111827;
-        border: 1px solid #CBD5E1;
-        border-radius: 8px;
+
+        background-color: #FFFFFF !important;
+        color: #111827 !important;
+
+        border: 1px solid #D1D5DB;
+        border-radius: 10px;
+
+        padding: 0.4rem;
     }
 
     /* ===== Dataframes ===== */
     .stDataFrame {
         background-color: #FFFFFF;
-        border-radius: 10px;
+        border-radius: 12px;
+        overflow: hidden;
     }
 
     /* ===== Alertas ===== */
     .stAlert {
-        border-radius: 10px;
+        border-radius: 12px;
     }
 
     /* ===== Footer ===== */
     footer {
         visibility: hidden;
     }
+
 </style>
 """, unsafe_allow_html=True)
 
