@@ -252,7 +252,7 @@ def pantalla_login():
     with col2:
         st.markdown("<br><br>", unsafe_allow_html=True)
         st.markdown(
-            "<h1 style='text-align:center; color:#1E3A8A;'>UGEL 07</h1>",
+            "<h1 style='text-align:center; color:#1E3A8A;'>UGEL 06</h1>",
             unsafe_allow_html=True,
         )
         st.markdown(
