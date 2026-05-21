@@ -153,12 +153,12 @@ st.markdown("""
 
 # ─────────────────────────────────────────────
 # CONSTANTES
-# ─────────────────────────────────────────────
+ ─────────────────────────────────────────────
 ADMIN_USER = "admi"
 ADMIN_PASS = "admi123"
+
 SCOPE = [
-    "https://spreadsheets.google.com/feeds",
-    "https://www.googleapis.com/auth/drive",
+    "https://www.googleapis.com/auth/spreadsheets",
 ]
 SHEET_NAME = "Asistencias_UGEL"
 
@@ -252,11 +252,11 @@ def pantalla_login():
     with col2:
         st.markdown("<br><br>", unsafe_allow_html=True)
         st.markdown(
-            "<h1 style='text-align:center; color:#1E3A8A;'>UGEL 06</h1>",
+            "<h1 style='text-align:center; color:#1E3A8A;'>UGEL06</h1>",
             unsafe_allow_html=True,
         )
         st.markdown(
-            "<h3 style='text-align:center; color:#374151;'>Sistema de Registro de Asistencias</h3>",
+            "<h3 style='text-align:center; color:#374151;'>Sistema de Registro de Asistencias :v</h3>",
             unsafe_allow_html=True,
         )
         st.markdown("<br>", unsafe_allow_html=True)
