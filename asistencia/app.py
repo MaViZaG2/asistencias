@@ -158,10 +158,11 @@ ADMIN_USER = "admi"
 ADMIN_PASS = "admi123"
 
 SCOPE = [
-    "https://www.googleapis.com/auth/spreadsheets",
+    "https://spreadsheets.google.com/feeds",
+    "https://www.googleapis.com/auth/drive",
 ]
-SHEET_NAME = "Asistencias_UGEL"
 
+SHEET_NAME = "Asistencias_UGEL"
 
 # ─────────────────────────────────────────────
 # CONEXIÓN A GOOGLE SHEETS
@@ -170,7 +171,6 @@ SHEET_NAME = "Asistencias_UGEL"
 def get_gspread_client():
     try:
         creds_dict = dict(st.secrets["gcp_service_account"])
-        # Asegurar saltos de línea en la clave privada
         if "private_key" in creds_dict:
             creds_dict["private_key"] = creds_dict["private_key"].replace("\\n", "\n")
         creds = ServiceAccountCredentials.from_json_keyfile_dict(creds_dict, SCOPE)
