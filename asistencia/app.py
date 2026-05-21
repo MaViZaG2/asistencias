@@ -371,7 +371,7 @@ def modulo_director():
 
     st.markdown(f"<div class='section-header'>Profesores - {fecha_str}</div>", unsafe_allow_html=True)
 
-    estados_opciones = ["Presente", "Ausente", "Retardo"]
+    estados_opciones = ["Presente", "Ausente", "Tardanza", "Licencia", "Sanción"]
     registros = []
 
     with st.form("form_asistencia"):
