@@ -436,10 +436,9 @@ def _guardar_asistencia(colegio_id, fecha_str, registros, asist_hoy, df_asist_co
     if ws is None:
         return
 
-timestamp = datetime.now(ZoneInfo("America/Lima")).strftime("%Y-%m-%d %H:%M:%S")
+    timestamp = datetime.now(ZoneInfo("America/Lima")).strftime("%Y-%m-%d %H:%M:%S")
 
     try:
-        # Si ya existen registros para esa fecha/colegio, eliminarlos primero
         all_data = ws.get_all_values()
         if len(all_data) > 1:
             headers = [h.strip().lower() for h in all_data[0]]
