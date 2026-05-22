@@ -5,6 +5,7 @@ from oauth2client.service_account import ServiceAccountCredentials
 from datetime import date, datetime
 import io
 import json
+from zoneinfo import ZoneInfo
 
 # ─────────────────────────────────────────────
 # CONFIGURACIÓN DE PÁGINA
@@ -435,7 +436,7 @@ def _guardar_asistencia(colegio_id, fecha_str, registros, asist_hoy, df_asist_co
     if ws is None:
         return
 
-    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+timestamp = datetime.now(ZoneInfo("America/Lima")).strftime("%Y-%m-%d %H:%M:%S")
 
     try:
         # Si ya existen registros para esa fecha/colegio, eliminarlos primero
