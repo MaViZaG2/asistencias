@@ -7,9 +7,8 @@ import io
 import json
 from zoneinfo import ZoneInfo
 
-# ─────────────────────────────────────────────
 # CONFIGURACIÓN DE PÁGINA
-# ─────────────────────────────────────────────
+
 st.set_page_config(
     page_title="Sistema de Asistencias - UGEL 06",
     page_icon=None,
@@ -17,13 +16,11 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-# ─────────────────────────────────────────────
 # ESTILOS CSS
-# ─────────────────────────────────────────────
+
 st.markdown("""
 <style>
 
-    /* ===== Fondo general ===== */
     .stApp {
         background-color: #F3F4F6;
     }
@@ -33,18 +30,15 @@ st.markdown("""
         font-family: 'Segoe UI', Arial, sans-serif;
     }
 
-    /* ===== Títulos ===== */
     h1, h2, h3 {
         color: #1D4ED8 !important;
         font-weight: 700;
     }
 
-    /* ===== Texto ===== */
     p, span, label, div {
         color: #111827;
     }
 
-    /* ===== Sidebar ===== */
     section[data-testid="stSidebar"] {
         background-color: #DBEAFE !important;
         border-right: 1px solid #BFDBFE;
@@ -54,7 +48,6 @@ st.markdown("""
         color: #1E3A8A !important;
     }
 
-    /* ===== Botones ===== */
     .stButton > button {
         background-color: #FCA5A5;
         color: #7F1D1D;
@@ -72,7 +65,6 @@ st.markdown("""
         transform: translateY(-1px);
     }
 
-    /* ===== Cards ===== */
     .info-card {
         background-color: #FFFFFF;
         border-left: 5px solid #60A5FA;
@@ -83,7 +75,6 @@ st.markdown("""
         box-shadow: 0 2px 6px rgba(0,0,0,0.06);
     }
 
-    /* ===== Filas / tablas ===== */
     .profesor-row {
         background-color: #FEFCE8;
         border: 1px solid #FDE68A;
@@ -92,7 +83,6 @@ st.markdown("""
         margin-bottom: 0.6rem;
     }
 
-    /* ===== Headers de sección ===== */
     .section-header {
         color: #1D4ED8;
         font-size: 1.1rem;
@@ -102,7 +92,6 @@ st.markdown("""
         margin-bottom: 1rem;
     }
 
-    /* ===== Estados ===== */
     .status-presente {
         color: #15803D;
         font-weight: 600;
@@ -118,7 +107,6 @@ st.markdown("""
         font-weight: 600;
     }
 
-    /* ===== Inputs ===== */
     .stTextInput input,
     .stTextArea textarea,
     .stSelectbox div[data-baseweb="select"] {
@@ -132,19 +120,16 @@ st.markdown("""
         padding: 0.4rem;
     }
 
-    /* ===== Dataframes ===== */
     .stDataFrame {
         background-color: #FFFFFF;
         border-radius: 12px;
         overflow: hidden;
     }
 
-    /* ===== Alertas ===== */
     .stAlert {
         border-radius: 12px;
     }
 
-    /* ===== Footer ===== */
     footer {
         visibility: hidden;
     }
@@ -152,9 +137,9 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# ─────────────────────────────────────────────
+
 # CONSTANTES
-# ─────────────────────────────────────────────
+
 ADMIN_USER = "admi"
 ADMIN_PASS = "admi123"
 
@@ -165,9 +150,7 @@ SCOPE = [
 
 SHEET_NAME = "Asistencias_UGEL"
 
-# ─────────────────────────────────────────────
-# CONEXIÓN A GOOGLE SHEETS
-# ─────────────────────────────────────────────
+
 @st.cache_resource(ttl=300)
 def get_gspread_client():
     try:
@@ -217,10 +200,8 @@ def sheet_to_df(tab_name: str) -> pd.DataFrame:
         st.error(f"Error al leer datos de '{tab_name}': {e}")
         return pd.DataFrame()
 
-
-# ─────────────────────────────────────────────
 # AUTENTICACIÓN
-# ─────────────────────────────────────────────
+
 def authenticate(usuario: str, password: str):
     """Retorna ('admin', None) o ('director', colegio_id) o (None, None)."""
     if usuario == ADMIN_USER and password == ADMIN_PASS:
@@ -244,10 +225,8 @@ def authenticate(usuario: str, password: str):
 
     return None, None
 
-
-# ─────────────────────────────────────────────
 # PANTALLA DE LOGIN
-# ─────────────────────────────────────────────
+
 def pantalla_login():
     col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
@@ -288,9 +267,9 @@ def pantalla_login():
             "Made by Matías Zamudio</p>",
             unsafe_allow_html=True,
         )
-# ─────────────────────────────────────────────
+
 # SIDEBAR
-# ─────────────────────────────────────────────
+
 def render_sidebar():
     with st.sidebar:
         st.markdown(
@@ -324,9 +303,9 @@ def render_sidebar():
     return opcion
 
 
-# ─────────────────────────────────────────────
+
 # MODULO DIRECTOR: REGISTRO DE ASISTENCIA
-# ─────────────────────────────────────────────
+
 def modulo_director():
     colegio_id = st.session_state["colegio_id"]
 
@@ -339,7 +318,6 @@ def modulo_director():
     fecha_sel = st.date_input("Fecha de registro", value=date.today())
     fecha_str = fecha_sel.strftime("%Y-%m-%d")
 
-    # Cargar profesores del colegio
     df_prof = sheet_to_df("profesores")
     if df_prof.empty:
         st.info("No hay profesores registrados. Contacte al administrador.")
@@ -357,7 +335,6 @@ def modulo_director():
         st.info(f"No hay profesores registrados para el colegio '{colegio_id}'.")
         return
 
-    # Cargar asistencias ya guardadas para esa fecha
     df_asist = sheet_to_df("asistencias")
     asist_hoy = {}
     if not df_asist.empty:
@@ -380,7 +357,6 @@ def modulo_director():
             nombre = str(row["nombre"]).strip()
             grado = str(row.get("grado", "")).strip()
 
-            # Valores por defecto desde registros previos
             prev = asist_hoy.get(nombre, None)
             def_estado = prev["estado"] if prev is not None and "estado" in prev else "Presente"
             def_horas = float(prev["horas"]) if prev is not None and "horas" in prev and str(prev["horas"]).strip() != "" else 6.0
@@ -451,11 +427,9 @@ def _guardar_asistencia(colegio_id, fecha_str, registros, asist_hoy, df_asist_co
                 ):
                     rows_to_delete.append(i)
 
-            # Eliminar de abajo hacia arriba para no desplazar índices
             for row_idx in reversed(rows_to_delete):
                 ws.delete_rows(row_idx)
 
-        # Agregar nuevas filas
         nuevas_filas = []
         for nombre, estado, horas, observacion in registros:
             nuevas_filas.append([
@@ -472,9 +446,8 @@ def _guardar_asistencia(colegio_id, fecha_str, registros, asist_hoy, df_asist_co
         st.error(f"Error al guardar asistencia: {e}")
 
 
-# ─────────────────────────────────────────────
 # MODULO ADMIN: CREDENCIALES
-# ─────────────────────────────────────────────
+
 def modulo_credenciales():
     st.markdown("<h2>Gestion de Credenciales</h2>", unsafe_allow_html=True)
 
@@ -482,7 +455,6 @@ def modulo_credenciales():
     if not df.empty:
         df.columns = [c.strip().lower() for c in df.columns]
 
-    # Buscar colegio
     st.markdown("<div class='section-header'>Buscar Colegio</div>", unsafe_allow_html=True)
     buscar = st.text_input("Codigo de colegio", placeholder="Ingrese codigo para filtrar...")
     if not df.empty and "colegio_id" in df.columns:
@@ -493,7 +465,6 @@ def modulo_credenciales():
 
     st.markdown("---")
 
-    # Agregar colegio
     st.markdown("<div class='section-header'>Agregar Nuevo Colegio</div>", unsafe_allow_html=True)
     with st.form("form_agregar_colegio"):
         col1, col2 = st.columns(2)
@@ -507,7 +478,6 @@ def modulo_credenciales():
             else:
                 ws = get_sheet("credenciales")
                 if ws:
-                    # Verificar duplicado
                     existing = df["colegio_id"].astype(str).tolist() if not df.empty and "colegio_id" in df.columns else []
                     if nuevo_cod.strip() in existing:
                         st.error(f"El colegio '{nuevo_cod}' ya existe.")
@@ -522,7 +492,6 @@ def modulo_credenciales():
 
     st.markdown("---")
 
-    # Actualizar contraseña
     st.markdown("<div class='section-header'>Actualizar Contrasena</div>", unsafe_allow_html=True)
     with st.form("form_actualizar_pass"):
         col1, col2 = st.columns(2)
@@ -538,7 +507,6 @@ def modulo_credenciales():
 
     st.markdown("---")
 
-    # Eliminar colegio
     st.markdown("<div class='section-header'>Eliminar Colegio</div>", unsafe_allow_html=True)
     with st.form("form_eliminar_colegio"):
         del_cod = st.text_input("Codigo del colegio a eliminar")
@@ -592,9 +560,8 @@ def _eliminar_colegio(colegio_id, df):
         st.error(f"Error: {e}")
 
 
-# ─────────────────────────────────────────────
 # MODULO ADMIN: PROFESORES
-# ─────────────────────────────────────────────
+
 def modulo_profesores():
     st.markdown("<h2>Gestion de Profesores</h2>", unsafe_allow_html=True)
 
@@ -613,7 +580,6 @@ def modulo_profesores():
 
     st.markdown("---")
 
-    # Agregar profesor
     st.markdown("<div class='section-header'>Agregar Profesor</div>", unsafe_allow_html=True)
     with st.form("form_agregar_prof"):
         col1, col2, col3 = st.columns(3)
@@ -639,7 +605,6 @@ def modulo_profesores():
 
     st.markdown("---")
 
-    # Eliminar profesor
     st.markdown("<div class='section-header'>Eliminar Profesor</div>", unsafe_allow_html=True)
     with st.form("form_eliminar_prof"):
         col1, col2 = st.columns(2)
@@ -682,9 +647,8 @@ def _eliminar_profesor(colegio, nombre):
         st.error(f"Error: {e}")
 
 
-# ─────────────────────────────────────────────
 # MODULO ADMIN: REPORTES
-# ─────────────────────────────────────────────
+    
 def modulo_reportes():
     st.markdown("<h2>Reportes de Asistencia</h2>", unsafe_allow_html=True)
 
@@ -695,7 +659,6 @@ def modulo_reportes():
 
     df_asist.columns = [c.strip().lower() for c in df_asist.columns]
 
-    # Filtros
     st.markdown("<div class='section-header'>Filtros</div>", unsafe_allow_html=True)
     col1, col2, col3 = st.columns(3)
 
@@ -707,7 +670,6 @@ def modulo_reportes():
     with col3:
         fecha_fin = st.date_input("Hasta", value=date.today())
 
-    # Aplicar filtros
     df_filtrado = df_asist.copy()
     if "colegio" in df_filtrado.columns and filtro_colegio != "Todos":
         df_filtrado = df_filtrado[df_filtrado["colegio"].astype(str) == filtro_colegio]
@@ -720,7 +682,6 @@ def modulo_reportes():
 
     st.markdown(f"<div class='info-card'>Registros encontrados: <strong>{len(df_filtrado)}</strong></div>", unsafe_allow_html=True)
 
-    # Resumen en pantalla
     st.markdown("<div class='section-header'>Resumen por Profesor</div>", unsafe_allow_html=True)
     if not df_filtrado.empty and "profesor" in df_filtrado.columns and "estado" in df_filtrado.columns:
         df_res = _calcular_resumen(df_filtrado)
@@ -731,7 +692,6 @@ def modulo_reportes():
 
     st.markdown("---")
 
-    # Descarga Excel
     st.markdown("<div class='section-header'>Descargar Reporte Excel</div>", unsafe_allow_html=True)
     if st.button("Generar y Descargar Excel"):
         if df_filtrado.empty:
@@ -748,7 +708,6 @@ def modulo_reportes():
 
     st.markdown("---")
 
-    # Actualizar estadísticas en hoja profesores
     st.markdown("<div class='section-header'>Actualizar Estadisticas en Hoja Profesores</div>", unsafe_allow_html=True)
     st.caption("Escribe dias_presentes, dias_ausentes y dias_retardo en la hoja 'profesores'.")
     if st.button("Actualizar Estadisticas"):
@@ -805,12 +764,10 @@ def _actualizar_estadisticas_profesores(df_asist: pd.DataFrame):
             st.error("La hoja 'profesores' no tiene columnas 'colegio' y 'nombre'.")
             return
 
-        # Asegurar columnas estadísticas
         nuevas_cols = ["dias_presente", "dias_ausentes", "dias_retardo"]
         for nc in nuevas_cols:
             if nc not in headers:
                 ws.add_cols_to_sheet if False else None
-                # Agregar encabezado
                 col_pos = len(headers) + 1
                 ws.update_cell(1, col_pos, nc)
                 headers.append(nc)
@@ -819,7 +776,6 @@ def _actualizar_estadisticas_profesores(df_asist: pd.DataFrame):
         col_ausente = headers.index("dias_ausentes")
         col_retardo = headers.index("dias_retardo")
 
-        # Calcular stats
         stats = {}
         for _, row in df_asist.iterrows():
             key = (str(row.get("colegio", "")).strip(), str(row.get("profesor", "")).strip())
@@ -829,7 +785,6 @@ def _actualizar_estadisticas_profesores(df_asist: pd.DataFrame):
             if est in stats[key]:
                 stats[key][est] += 1
 
-        # Actualizar filas
         updates = []
         for i, row in enumerate(all_data[1:], start=2):
             if len(row) > max(col_colegio, col_nombre):
@@ -849,9 +804,8 @@ def _actualizar_estadisticas_profesores(df_asist: pd.DataFrame):
         st.error(f"Error al actualizar estadisticas: {e}")
 
 
-# ─────────────────────────────────────────────
 # PUNTO DE ENTRADA PRINCIPAL
-# ─────────────────────────────────────────────
+
 def main():
     if "rol" not in st.session_state:
         pantalla_login()
